@@ -1,0 +1,28 @@
+cc_library(
+    name = "base",
+    srcs = glob(["absl/base/*.cc"], exclude = ["**test**.cc"]),
+    hdrs = glob(["absl/base/**.h"]),
+)
+
+cc_library(
+    name = "meta",
+    srcs = glob(["absl/meta/*.cc"], exclude = ["**test**.cc"]),
+    hdrs = glob(["absl/meta/**.h"]),
+)
+
+cc_library(
+    name = "numeric",
+    srcs = glob(["absl/numeric/*.cc"], exclude = ["**test**.cc", "**benchmark**"]),
+    hdrs = glob(["absl/numeric/**.h", "absl/numeric/**.inc"]),
+    deps = [":base"],
+)
+
+
+cc_library(
+    name = "strings",
+    srcs = glob(["absl/strings/*.cc", "absl/strings/internal/*.cc"], exclude = ["**test**.cc", "**benchmark**"]),
+    hdrs = glob(["absl/strings/**.h"]),
+    deps = [":base", ":meta", ":numeric"],
+    visibility = ["PUBLIC"],
+)
+
